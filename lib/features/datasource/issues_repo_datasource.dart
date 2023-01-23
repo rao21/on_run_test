@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:on_run_test/core/error/failures.dart';
 import 'package:on_run_test/core/utils/constants.dart';
+import 'package:on_run_test/core/utils/http.dart';
 import 'package:on_run_test/features/issues/data/datamodels/issues/issues_repo.dart';
 import 'package:http/http.dart' as http;
 
@@ -20,18 +22,17 @@ class IssuesRepoDataSourceImpl extends IssueRepoDataSource {
   Future<Issues> getSearchReposIssues(
       {required int pageNo, required String fullName}) async {
     try {
-      final response = await client.get(
-          Uri.parse(
-              '${Constants.aDebugBaseUrl}${Constants.searchRepoIssuesUrl}?q=$fullName&sort,order,per_page,page,order&page=$pageNo&per_page=${Constants.perPage}'),
-          headers: {
-            "Content-Type": "application/json",
-            "Token": Constants.token
-          });
+      final url =
+          "${Constants.aDebugBaseUrl}${Constants.searchRepoIssuesUrl}?q=$fullName&sort,order,per_page,page,order&page=$pageNo&per_page=${Constants.perPage}";
+      final response = await HttpCalls.getApiCall(url: url);
+
       log("URL ${response.request!.url}");
       if (response.statusCode == 200) {
         Map<String, dynamic> resp = jsonDecode(response.body);
         return Issues.fromJson(resp);
       }
+    } on NetworkConnectFailure {
+      throw NetworkConnectFailure();
     } catch (exp) {
       log(exp.toString());
       throw Exception(exp);
