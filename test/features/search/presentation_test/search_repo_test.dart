@@ -26,6 +26,7 @@ void main() {
       final di = GetIt.instance;
       di.registerFactory<SearchRepoBloc>(() => mockSearchBloc!);
       searchRepoBloc = di<SearchRepoBloc>();
+      
     });
 
     testGoldens('succes state with data', (WidgetTester tester) async {
@@ -33,6 +34,10 @@ void main() {
           incompleteResults: false,
           items: mockRepoItemsData,
           totalCount: mockIssuesItemsData.length - 1);
+      mockSearchBloc!.hasMoreData = false;
+      when(() => mockSearchBloc!.hasMoreData).thenAnswer(
+          (invocation) => false);
+      
       when(() => mockSearchBloc!.state).thenAnswer(
           (invocation) => GetSearchRepoPaginatedState(reposItem: mockRepo));
 
