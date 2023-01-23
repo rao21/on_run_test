@@ -1,5 +1,5 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:on_run_test/core/error/failures.dart';
 import 'package:on_run_test/core/utils/sort_extention.dart';
 import 'package:on_run_test/features/search/data/datamodels/searchrepo/search_repo.dart';
 import 'package:on_run_test/features/search/domain/usecases/search_repo_usecase.dart';
@@ -24,15 +24,20 @@ class SearchRepoBloc extends Bloc<SearchRepoEvent, SearchRepoState> {
             await getRepo.call(pageNo: pageNo, keyWords: event.keyWords!);
         response.fold(
           (failure) {
-            emit(const GetSearchRepoPaginatedErrorState(
-                message: "Unexpected Error, Please Try Again"));
+            emit(GetSearchRepoPaginatedErrorState(
+                message: failure.runtimeType == SerivceFailure
+                    ? 'Server Not Responding'
+                    : failure.runtimeType == NoInternetException
+                        ? 'No Internet connection'
+                        : 'Something went wrong!!'));
             hasMoreData = true;
           },
           (searchedItems) {
             hasMoreData = searchedItems.items!.isNotEmpty;
             repos.addAll(searchedItems.items!.toList());
             repos.sortedBy((it) => it.name!);
-            emit(GetSearchRepoPaginatedState(reposItem: searchedItems));
+            emit(GetSearchRepoPaginatedState(
+                reposItem: searchedItems.items!, pageNo: pageNo));
 
             pageNo++;
           },

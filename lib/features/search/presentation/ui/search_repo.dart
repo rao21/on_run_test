@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:on_run_test/core/utils/constants.dart';
 import 'package:on_run_test/features/issues/presentation/ui/git_repo_issues.dart';
 import 'package:on_run_test/features/search/data/datamodels/searchrepo/search_repo.dart';
 import 'package:on_run_test/features/search/presentation/bloc/search_repo_bloc.dart';
@@ -20,25 +21,25 @@ class GitReposListPage extends StatefulWidget {
 
 class _GitReposListPageState extends State<GitReposListPage> {
   final TextEditingController _searchCont = TextEditingController();
-
+  List<Items>? data = [];
   Future<void> _onRefresh(BuildContext context) async {
-    // context.read<SearchRepoBloc>().repos.clear();
-    BlocProvider.of<SearchRepoBloc>(context, listen: false)
-        .add(const SearchRepoInitialEvent());
-    _loadRepo();
+    context.read<SearchRepoBloc>().repos.clear();
+    _fetchRepoData();
   }
 
   @override
   void dispose() {
+    data!.clear();
     super.dispose();
   }
 
-  Future<void> _loadRepo() async {
+  Future<void> _fetchRepoData() async {
     BlocProvider.of<SearchRepoBloc>(context, listen: false)
         .add(SearchRepoPaginatedEvent(keyWords: _searchCont.text));
   }
 
   Future<void> _clearBloc() async {
+    data!.clear();
     BlocProvider.of<SearchRepoBloc>(context, listen: false)
         .add(const SearchRepoInitialEvent());
   }
@@ -58,6 +59,7 @@ class _GitReposListPageState extends State<GitReposListPage> {
   }
 
   Widget _buildBody() {
+    var moreData = context.watch<SearchRepoBloc>().hasMoreData;
     return Column(
       children: [
         _buildSearchFieldWidget(),
@@ -67,37 +69,29 @@ class _GitReposListPageState extends State<GitReposListPage> {
                 context.read<SearchRepoBloc>().repos.isEmpty) {
               return const LoadingWidget();
             } else if (state is GetSearchRepoPaginatedState) {
-              return Expanded(
-                child: RefreshIndicator(
-                    onRefresh: () => _onRefresh(context),
-                    child: ReposLazyListWidget(
-                        data: state.reposItem
-                            .items!, //context.watch<SearchRepoBloc>().repos,
-                        loadMoreCallBack: _loadRepo,
-                        onTapCallBack: (key) => _naviagteToIssue,
-                        hasMore:
-                            false, //context.read<SearchRepoBloc>().hasMoreData,
-                        childType: Repos)),
-              );
+              data!.addAll(state.reposItem!);
+              return _buildRepoList(data!, moreData);
             } else if (state is GetSearchRepoPaginatedErrorState &&
                 context.read<SearchRepoBloc>().repos.isEmpty) {
-              return const Center(child: Text("Error while loading."));
+              return Center(child: Text(state.message));
             }
-            return Container();
-            // return Expanded(
-            //   child: RefreshIndicator(
-            //       onRefresh: () => _onRefresh(context),
-            //       child: ReposLazyListWidget(
-            //           data:  context.read<SearchRepoBloc>().repos,
-            //           loadMoreCallBack: _loadRepo,
-            //           childType: Repos,
-            //           hasMore:
-            //               true, //context.read<SearchRepoBloc>().hasMoreData,
-            //           onTapCallBack: _naviagteToIssue)),
-            // );
+            return _buildRepoList(data!, moreData);
           },
         ),
       ],
+    );
+  }
+
+  Widget _buildRepoList(List<Items> data, bool moreData) {
+    return Expanded(
+      child: RefreshIndicator(
+          onRefresh: () => _onRefresh(context),
+          child: ReposLazyListWidget(
+              data: data,
+              loadMoreCallBack: () => _fetchRepoData(),
+              onTapCallBack: (key) => _naviagteToIssue(key),
+              hasMore: moreData,
+              childType: Repos)),
     );
   }
 
@@ -106,19 +100,18 @@ class _GitReposListPageState extends State<GitReposListPage> {
       padding: const EdgeInsets.all(8.0),
       child: TextField(
         onChanged: (value) {
-          if (value.length == 4) {
+          if (value.length == Constants.searchMaxLength) {
             log("start search");
             FocusScope.of(context).unfocus();
             _clearBloc();
-            _loadRepo();
+            _fetchRepoData();
           }
         },
         controller: _searchCont,
-        maxLength: 4,
+        maxLength: Constants.searchMaxLength,
         decoration: const InputDecoration(
             labelText: "Search",
             hintText: "Search",
-            prefixIcon: Icon(Icons.search),
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0)))),
       ),

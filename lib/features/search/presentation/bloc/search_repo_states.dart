@@ -13,8 +13,12 @@ class SearchRepoInitialState extends SearchRepoState {}
 class GetSearchRepoLoadingState extends SearchRepoState {}
 
 class GetSearchRepoPaginatedState extends SearchRepoState {
-  final Repos reposItem;
-  const GetSearchRepoPaginatedState({required this.reposItem});
+  final List<Items>? reposItem;
+  final int? pageNo;
+  const GetSearchRepoPaginatedState(
+      {required this.reposItem, required this.pageNo});
+  @override
+  List<Object> get props => [reposItem!, pageNo!];
 }
 
 class GetSearchRepoPaginatedErrorState extends SearchRepoState {
@@ -25,4 +29,3 @@ class GetSearchRepoPaginatedErrorState extends SearchRepoState {
   @override
   List<Object> get props => [message];
 }
-

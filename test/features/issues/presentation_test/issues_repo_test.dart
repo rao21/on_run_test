@@ -11,7 +11,6 @@ import 'package:on_run_test/features/issues/presentation/ui/git_repo_issues.dart
 
 import '../../../helper/helper.dart';
 import '../mock_repo/mock_data.dart';
-import '../mock_repo/mock_issues_use_case.dart';
 
 void main() {
   GitRepoIssuesBloc gitIssueBloc;
