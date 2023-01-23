@@ -59,7 +59,7 @@ class _GitReposIssuesListPageState extends State<GitReposIssuesListPage> {
                     onRefresh: () => _onRefresh(context),
                     child: ReposLazyListWidget(
                         data: state.reposItem,
-                        loadMoreCallBack: _loadRepoIssues,
+                        loadMoreCallBack:() => _loadRepoIssues(),
                         childType: Issues,
                         hasMore: context.read<GitRepoIssuesBloc>().hasMoreData,
                         onTapCallBack: (key) {})),
@@ -73,7 +73,7 @@ class _GitReposIssuesListPageState extends State<GitReposIssuesListPage> {
                   onRefresh: () => _onRefresh(context),
                   child: ReposLazyListWidget(
                       data: context.read<GitRepoIssuesBloc>().reposIssues,
-                      loadMoreCallBack: _loadRepoIssues,
+                      loadMoreCallBack:() => _loadRepoIssues(),
                       childType: Issues,
                       hasMore: context.read<GitRepoIssuesBloc>().hasMoreData,
                       onTapCallBack: (key) {})),
