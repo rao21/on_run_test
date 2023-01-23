@@ -4,14 +4,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:on_run_test/features/search/data/datamodels/searchrepo/search_repo.dart';
 import 'package:on_run_test/features/search/presentation/bloc/search_repo_bloc.dart';
 import 'package:on_run_test/features/search/presentation/bloc/search_repo_events.dart';
 import 'package:on_run_test/features/search/presentation/bloc/search_repo_states.dart';
 import 'package:on_run_test/features/search/presentation/ui/search_repo.dart';
 
 import '../../../helper/helper.dart';
-import '../../issues/mock_repo/mock_data.dart';
 import '../mock_repo/mock_data.dart';
 
 void main() {
@@ -26,20 +24,14 @@ void main() {
       final di = GetIt.instance;
       di.registerFactory<SearchRepoBloc>(() => mockSearchBloc!);
       searchRepoBloc = di<SearchRepoBloc>();
-      
     });
 
     testGoldens('succes state with data', (WidgetTester tester) async {
-      final mockRepo = Repos(
-          incompleteResults: false,
-          items: mockRepoItemsData,
-          totalCount: mockIssuesItemsData.length - 1);
       mockSearchBloc!.hasMoreData = false;
-      when(() => mockSearchBloc!.hasMoreData).thenAnswer(
-          (invocation) => false);
-      
-      when(() => mockSearchBloc!.state).thenAnswer(
-          (invocation) => GetSearchRepoPaginatedState(reposItem: mockRepo));
+      when(() => mockSearchBloc!.hasMoreData).thenAnswer((invocation) => false);
+
+      when(() => mockSearchBloc!.state).thenAnswer((invocation) =>
+          GetSearchRepoPaginatedState(reposItem: mockRepoItemsData, pageNo: 2));
 
       var customWidget = const GitReposListPage(
         title: 'Git Repositories',

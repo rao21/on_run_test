@@ -1,6 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:on_run_test/features/search/data/datamodels/searchrepo/search_repo.dart';
 import 'package:on_run_test/features/search/presentation/bloc/search_repo_bloc.dart';
 import 'package:on_run_test/features/search/presentation/bloc/search_repo_events.dart';
 import 'package:on_run_test/features/search/presentation/bloc/search_repo_states.dart';
@@ -23,10 +22,7 @@ void main() {
         expect: (() => [
               GetSearchRepoLoadingState(),
               GetSearchRepoPaginatedState(
-                  reposItem: Repos(
-                      incompleteResults: false,
-                      totalCount: mockRepoItemsData.length,
-                      items: mockRepoItemsData))
+                  pageNo: 1, reposItem: mockRepoItemsData)
             ]));
 
     blocTest('emit [] on clear bloc values.',
