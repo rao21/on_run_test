@@ -4,4 +4,5 @@ class Constants {
   static const searchRepoIssuesUrl = '/issues';
   static const token = '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';
   static const perPage = 100;
+  static const searchMaxLength = 4;
 }
