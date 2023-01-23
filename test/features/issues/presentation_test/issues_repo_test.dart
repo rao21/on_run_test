@@ -31,6 +31,7 @@ void main() {
       when(() => mockMyBloc!.state).thenAnswer((invocation) =>
           GitIssueRepoSuccessState(reposItem: mockIssuesItemsData));
       when(() => mockMyBloc!.hasMoreData).thenAnswer((invocation) => false);
+      when(() => mockMyBloc!.reposIssues).thenAnswer((invocation) => []);
       var customWidget = const GitReposIssuesListPage(
         fullName: 'rao/rao',
       ).wrapWithMaterialApp();
