@@ -31,7 +31,7 @@ void main() {
     testGoldens('succes state with data', (WidgetTester tester) async {
       when(() => mockMyBloc!.state).thenAnswer((invocation) =>
           GitIssueRepoSuccessState(reposItem: mockIssuesItemsData));
-      mockMyBloc!.hasMoreData = true;
+      when(() => mockMyBloc!.hasMoreData).thenAnswer((invocation) => false);
       var customWidget = const GitReposIssuesListPage(
         fullName: 'rao/rao',
       ).wrapWithMaterialApp();
@@ -41,8 +41,9 @@ void main() {
       await screenMatchesGolden(tester, 'issue_list_success_with_data');
     });
     testGoldens('succes state with empty data', (WidgetTester tester) async {
-      when(() => mockMyBloc!.state)
-          .thenAnswer((invocation) => const GitIssueRepoSuccessState(reposItem: []));
+      when(() => mockMyBloc!.hasMoreData).thenAnswer((invocation) => false);
+      when(() => mockMyBloc!.state).thenAnswer(
+          (invocation) => const GitIssueRepoSuccessState(reposItem: []));
       mockMyBloc!.hasMoreData = true;
       var customWidget = const GitReposIssuesListPage(
         fullName: 'rao/rao',
@@ -53,8 +54,9 @@ void main() {
       await screenMatchesGolden(tester, 'issue_list_success_without_data');
     });
     testGoldens('error state', (WidgetTester tester) async {
-      when(() => mockMyBloc!.state).thenAnswer(
-          (invocation) => const GetIssueRepoErrorState(message: 'No Data found'));
+      when(() => mockMyBloc!.hasMoreData).thenAnswer((invocation) => false);
+      when(() => mockMyBloc!.state).thenAnswer((invocation) =>
+          const GetIssueRepoErrorState(message: 'No Data found'));
       mockMyBloc!.hasMoreData = true;
       var customWidget = const GitReposIssuesListPage(
         fullName: 'rao/rao',
