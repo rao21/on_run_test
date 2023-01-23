@@ -1,11 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:on_run_test/features/issues/data/datamodels/issues/issues_repo.dart';
-import 'package:on_run_test/features/issues/presentation/bloc/git_repo_issue_bloc.dart';
 import 'package:on_run_test/features/search/data/datamodels/searchrepo/search_repo.dart';
-import 'package:on_run_test/features/search/presentation/bloc/search_repo_bloc.dart';
 
 class ReposLazyListWidget extends StatelessWidget {
   final List<dynamic> data;
