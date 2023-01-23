@@ -27,10 +27,10 @@ class _GitReposIssuesListPageState extends State<GitReposIssuesListPage> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-    context.read<GitRepoIssuesBloc>().reposIssues.clear();
-    BlocProvider.of<GitRepoIssuesBloc>(context, listen: false)
-        .add(const GitRepoIssuesEventInitialEvent());
-    _loadRepoIssues();
+      context.read<GitRepoIssuesBloc>().reposIssues.clear();
+      BlocProvider.of<GitRepoIssuesBloc>(context, listen: false)
+          .add(const GitRepoIssuesEventInitialEvent());
+      _loadRepoIssues();
     });
     super.initState();
   }
@@ -66,7 +66,7 @@ class _GitReposIssuesListPageState extends State<GitReposIssuesListPage> {
               );
             } else if (state is GetIssueRepoErrorState &&
                 context.read<GitRepoIssuesBloc>().reposIssues.isEmpty) {
-              return const Center(child: Text("Error while loading."));
+              return Center(child: Text(state.message));
             }
             return Expanded(
               child: RefreshIndicator(
@@ -87,10 +87,8 @@ class _GitReposIssuesListPageState extends State<GitReposIssuesListPage> {
   AppBar _buildAppBar() => AppBar(
       leading: IconButton(
           onPressed: () {
-           
             Navigator.of(context).pop();
-           
           },
           icon: const Icon(Icons.close)),
-      title: const Text('Flutter'));
+      title: Text('${widget.fullName} Issues'));
 }
