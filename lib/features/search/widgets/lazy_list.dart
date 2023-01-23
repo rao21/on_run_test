@@ -59,7 +59,7 @@ class ReposLazyListWidget extends StatelessWidget {
                       const SizedBox(
                         width: 8,
                       ),
-                      Text(obj[i].name!),
+                      Flexible(child: Text(obj[i].name!)),
                     ],
                   ),
                   subtitle: Row(
