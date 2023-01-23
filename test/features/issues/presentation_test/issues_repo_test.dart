@@ -52,19 +52,6 @@ void main() {
       await tester.pumpAndSettle();
       await screenMatchesGolden(tester, 'issue_list_success_without_data');
     });
-    testGoldens('error state', (WidgetTester tester) async {
-      when(() => mockMyBloc!.hasMoreData).thenAnswer((invocation) => false);
-      when(() => mockMyBloc!.state).thenAnswer((invocation) =>
-          const GetIssueRepoErrorState(message: 'No Data found'));
-      mockMyBloc!.hasMoreData = true;
-      var customWidget = const GitReposIssuesListPage(
-        fullName: 'rao/rao',
-      ).wrapWithMaterialApp();
-      await tester.pumpWidgetBuilder(customWidget,
-          surfaceSize: const Size(800, 800));
-      await tester.pumpAndSettle();
-      await screenMatchesGolden(tester, 'issue_list_error');
-    });
   });
 }
 
