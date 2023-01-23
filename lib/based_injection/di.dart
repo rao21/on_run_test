@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:on_run_test/core/error/failures.dart';
 import 'package:on_run_test/features/datasource/issues_repo_datasource.dart';
 import 'package:on_run_test/features/datasource/serach_repo_datasource.dart';
 import 'package:on_run_test/features/issues/data/repository/issues_repo_impl.dart';
@@ -29,6 +30,6 @@ Future<void> init() async {
       () => IssuesRepoImplementation(repositories: sl()));
   sl.registerLazySingleton<IssueRepoDataSource>(
       () => IssuesRepoDataSourceImpl(client: sl()));
-
+  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
   sl.registerLazySingleton(() => http.Client());
 }
