@@ -27,7 +27,7 @@ class _GitReposIssuesListPageState extends State<GitReposIssuesListPage> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-    //context.read<GitRepoIssuesBloc>().reposIssues.clear();
+    context.read<GitRepoIssuesBloc>().reposIssues.clear();
     BlocProvider.of<GitRepoIssuesBloc>(context, listen: false)
         .add(const GitRepoIssuesEventInitialEvent());
     _loadRepoIssues();
@@ -61,8 +61,7 @@ class _GitReposIssuesListPageState extends State<GitReposIssuesListPage> {
                         data: state.reposItem,
                         loadMoreCallBack: _loadRepoIssues,
                         childType: Issues,
-                        hasMore:
-                            false, //context.read<GitRepoIssuesBloc>().hasMoreData,
+                        hasMore: context.read<GitRepoIssuesBloc>().hasMoreData,
                         onTapCallBack: (key) {})),
               );
             } else if (state is GetIssueRepoErrorState &&
@@ -88,9 +87,9 @@ class _GitReposIssuesListPageState extends State<GitReposIssuesListPage> {
   AppBar _buildAppBar() => AppBar(
       leading: IconButton(
           onPressed: () {
-            //WidgetsBinding.instance.addPostFrameCallback((_) {
+           
             Navigator.of(context).pop();
-            //  });
+           
           },
           icon: const Icon(Icons.close)),
       title: const Text('Flutter'));
