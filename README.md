@@ -10,6 +10,11 @@ This project is a starting point for a Flutter application.
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+# Json build runner command
+fvm flutter clean
+fvm flutter packages get
+fvm flutter packages pub run build_runner build --delete-conflicting-outputs
+
 # flutter_test
 For Golden test update run command
 fvm flutter test --update-goldens test/features/issues/presentation_test/issues_repo_test.dart
