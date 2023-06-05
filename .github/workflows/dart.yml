@@ -21,7 +21,17 @@ jobs:
 
       - name: Analyze project source
         run: dart analyze
-
+      
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action/composite@v2
+        if: always()
+        with:
+          files: |
+            test-results/**/*.xml
+            test-results/**/*.trx
+            test-results/**/*.json
+        
+      
       - name: Run tests
         run: flutter test --coverage
       - name: Upload coverage to Codecov
