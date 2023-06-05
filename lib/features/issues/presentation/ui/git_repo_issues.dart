@@ -90,5 +90,5 @@ class _GitReposIssuesListPageState extends State<GitReposIssuesListPage> {
             Navigator.of(context).pop();
           },
           icon: const Icon(Icons.close)),
-      title: Text('${widget.fullName} Issues'));
+      title: Text('${widget.fullName} Issues repo'));
 }
