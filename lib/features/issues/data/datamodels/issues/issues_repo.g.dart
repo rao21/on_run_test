@@ -11,7 +11,7 @@ Issues _$IssuesFromJson(Map<String, dynamic> json) => Issues(
       items: (json['items'] as List<dynamic>?)
           ?.map((e) => IssuesItems.fromJson(e as Map<String, dynamic>))
           .toList(),
-      totalCount: json['total_count'] as int?,
+      totalCount: (json['total_count'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$IssuesToJson(Issues instance) => <String, dynamic>{

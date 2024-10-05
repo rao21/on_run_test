@@ -7,8 +7,8 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:on_run_test/based_injection/di.dart' as di;
 import 'package:on_run_test/features/issues/presentation/bloc/git_repo_issue_bloc.dart';
 import 'package:on_run_test/features/issues/presentation/bloc/git_repo_issue_events.dart';
-import 'package:on_run_test/features/search/presentation/bloc/search_repo_bloc.dart';
-import 'package:on_run_test/features/search/presentation/bloc/search_repo_events.dart';
+import 'package:on_run_test/features/job/presentation/bloc/job_list_bloc.dart';
+import 'package:on_run_test/features/job/presentation/bloc/job_list_events.dart';
 
 Future<void> testExecutable(FutureOr<void> Function() testMain) async {
   return GoldenToolkit.runWithConfiguration(
@@ -28,7 +28,7 @@ extension TestWidgetWrapper on Widget {
       providers: [
         BlocProvider(
             create: (_) =>
-                di.sl<SearchRepoBloc>()..add(const SearchRepoInitialEvent())),
+                di.sl<JobRepoBloc>()..add(const JobListInitialEvent())),
         BlocProvider(
             create: (_) => di.sl<GitRepoIssuesBloc>()
               ..add(const GitRepoIssuesEventInitialEvent())),

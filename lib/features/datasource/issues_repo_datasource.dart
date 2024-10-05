@@ -22,11 +22,9 @@ class IssuesRepoDataSourceImpl extends IssueRepoDataSource {
   Future<Issues> getSearchReposIssues(
       {required int pageNo, required String fullName}) async {
     try {
-      final url =
-          "${Constants.aDebugBaseUrl}${Constants.searchRepoIssuesUrl}?q=$fullName&sort,order,per_page,page,order&page=$pageNo&per_page=${Constants.perPage}";
+      const url =
+          "${Constants.aDebugBaseUrl}${Constants.searchRepoIssuesUrl}";
       final response = await HttpCalls.getApiCall(url: url);
-
-      log("URL ${response.request!.url}");
       if (response.statusCode == 200) {
         Map<String, dynamic> resp = jsonDecode(response.body);
         return Issues.fromJson(resp);

@@ -4,26 +4,26 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:on_run_test/features/search/presentation/bloc/search_repo_bloc.dart';
-import 'package:on_run_test/features/search/presentation/bloc/search_repo_events.dart';
-import 'package:on_run_test/features/search/presentation/bloc/search_repo_states.dart';
-import 'package:on_run_test/features/search/presentation/ui/search_repo.dart';
+import 'package:on_run_test/features/job/presentation/bloc/job_list_bloc.dart';
+import 'package:on_run_test/features/job/presentation/bloc/job_list_events.dart';
+import 'package:on_run_test/features/job/presentation/bloc/job_list_states.dart';
+import 'package:on_run_test/features/job/presentation/ui/job_list.dart';
 
 import '../../../helper/helper.dart';
 import '../mock_repo/mock_data.dart';
 
 void main() {
-  SearchRepoBloc searchRepoBloc;
+  JobRepoBloc searchRepoBloc;
   MockSearchBloc? mockSearchBloc;
   group('Git repo list ', () {
     setUpAll(() async {
       loadAppFonts();
-      registerFallbackValue<SearchRepoEvent>(FakeSearchRepoEvent());
-      registerFallbackValue<SearchRepoState>(FakeIssueRepoState());
+      registerFallbackValue<JobListEvent>(FakeSearchRepoEvent());
+      registerFallbackValue<JobListState>(FakeIssueRepoState());
       mockSearchBloc = MockSearchBloc();
       final di = GetIt.instance;
-      di.registerFactory<SearchRepoBloc>(() => mockSearchBloc!);
-      searchRepoBloc = di<SearchRepoBloc>();
+      di.registerFactory<JobRepoBloc>(() => mockSearchBloc!);
+      searchRepoBloc = di<JobRepoBloc>();
     });
 
     testGoldens('succes state with data', (WidgetTester tester) async {
@@ -31,9 +31,9 @@ void main() {
       when(() => mockSearchBloc!.hasMoreData).thenAnswer((invocation) => false);
 
       when(() => mockSearchBloc!.state).thenAnswer((invocation) =>
-          GetSearchRepoPaginatedState(reposItem: mockRepoItemsData, pageNo: 2));
+          JobListPaginatedState(reposItem: mockRepoItemsData, pageNo: 2));
 
-      var customWidget = const GitReposListPage(
+      var customWidget = const JobListWidget(
         title: 'Git Repositories',
       ).wrapWithMaterialApp();
 
@@ -46,9 +46,9 @@ void main() {
   });
 }
 
-class MockSearchBloc extends MockCubit<SearchRepoState>
-    implements SearchRepoBloc {}
+class MockSearchBloc extends MockCubit<JobListState>
+    implements JobRepoBloc {}
 
-class FakeSearchRepoEvent extends Fake implements SearchRepoEvent {}
+class FakeSearchRepoEvent extends Fake implements JobListEvent {}
 
-class FakeIssueRepoState extends Fake implements SearchRepoState {}
+class FakeIssueRepoState extends Fake implements JobListState {}

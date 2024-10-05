@@ -4,8 +4,8 @@ import 'package:on_run_test/features/issues/data/datamodels/issues/issues_repo.d
 import 'package:on_run_test/features/issues/presentation/bloc/git_repo_issue_bloc.dart';
 import 'package:on_run_test/features/issues/presentation/bloc/git_repo_issue_events.dart';
 import 'package:on_run_test/features/issues/presentation/bloc/git_repo_issue_states.dart';
-import 'package:on_run_test/features/search/widgets/lazy_list.dart';
-import 'package:on_run_test/features/search/widgets/loading_widget.dart';
+import 'package:on_run_test/features/job/widgets/lazy_list.dart';
+import 'package:on_run_test/features/job/widgets/loading_widget.dart';
 
 class GitReposIssuesListPage extends StatefulWidget {
   const GitReposIssuesListPage({Key? key, required this.fullName})

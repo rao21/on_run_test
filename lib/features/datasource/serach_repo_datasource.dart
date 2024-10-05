@@ -4,29 +4,27 @@ import 'dart:developer';
 import 'package:on_run_test/core/error/failures.dart';
 import 'package:on_run_test/core/utils/constants.dart';
 import 'package:on_run_test/core/utils/http.dart';
-import 'package:on_run_test/features/search/data/datamodels/searchrepo/search_repo.dart';
+import 'package:on_run_test/features/job/data/datamodels/searchrepo/job_list_repo.dart';
 import 'package:http/http.dart' as http;
 
-abstract class SearchRepoDataSource {
-  Future<Repos> getSearchRepos({required int pageNo, required String keyWords});
+abstract class JobRepoDataSource {
+  Future<JobResponse> getSearchRepos();
 }
 
-class SearchRepoDataSourceImpl extends SearchRepoDataSource {
+class JobRepoDataSourceImpl extends JobRepoDataSource {
   late final http.Client client;
-  SearchRepoDataSourceImpl({required this.client});
+  JobRepoDataSourceImpl({required this.client});
 
   @override
-  Future<Repos> getSearchRepos(
-      {required int pageNo, required String keyWords}) async {
+  Future<JobResponse> getSearchRepos() async {
     try {
-      final url =
-          "${Constants.aDebugBaseUrl}${Constants.searchRepoUrl}?q=$keyWords&sort=name,direction=asc&page=$pageNo&per_page=${Constants.perPage}";
+      const url =
+          "${Constants.aDebugBaseUrl}${Constants.jobs}";
       final response = await HttpCalls.getApiCall(url: url);
-      log("URL ${response.request!.url}");
       if (response.statusCode == 200) {
-        Map<String, dynamic> resp = jsonDecode(response.body);
-        return Repos.fromJson(resp);
-      }
+        final jsonResponse = json.decode(response.body);
+        return JobResponse.fromJson(jsonResponse);
+        }
     } on NetworkConnectFailure {
       throw NetworkConnectFailure();
     } catch (exp) {

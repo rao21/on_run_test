@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:on_run_test/core/error/failures.dart';
-import 'package:on_run_test/features/search/data/datamodels/searchrepo/search_repo.dart';
-import 'package:on_run_test/features/search/domain/repositories/search_repository.dart';
-import 'package:on_run_test/features/search/domain/usecases/search_repo_usecase.dart';
+import 'package:on_run_test/features/job/data/datamodels/searchrepo/job_list_repo.dart';
+import 'package:on_run_test/features/job/domain/repositories/job_repository.dart';
+import 'package:on_run_test/features/job/domain/usecases/job_list_usecase.dart';
 
 import 'mock_data.dart';
 import 'mock_search_repo.dart';
 
-class MockSearcUseCase implements SearchRepoUseCase {
+class MockSearcUseCase implements JobListUseCase {
   @override
   Future<Either<Failure, Repos>> call(
       {required int pageNo, required String keyWords}) {
@@ -17,5 +17,5 @@ class MockSearcUseCase implements SearchRepoUseCase {
   }
 
   @override
-  SearchRepositories get repo => MockSearchRepo();
+  JobRepositories get repo => MockSearchRepo();
 }

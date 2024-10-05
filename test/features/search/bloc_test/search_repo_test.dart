@@ -1,33 +1,33 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:on_run_test/features/search/presentation/bloc/search_repo_bloc.dart';
-import 'package:on_run_test/features/search/presentation/bloc/search_repo_events.dart';
-import 'package:on_run_test/features/search/presentation/bloc/search_repo_states.dart';
+import 'package:on_run_test/features/job/presentation/bloc/job_list_bloc.dart';
+import 'package:on_run_test/features/job/presentation/bloc/job_list_events.dart';
+import 'package:on_run_test/features/job/presentation/bloc/job_list_states.dart';
 
 import '../mock_repo/mock_data.dart';
 import '../mock_repo/mock_use_case.dart';
 
 void main() {
   group('Search repo bloc test', () {
-    late SearchRepoBloc searchRepoBloc;
+    late JobRepoBloc searchRepoBloc;
     MockSearcUseCase mockSearcRepo;
     setUpAll(() {
       mockSearcRepo = MockSearcUseCase();
-      searchRepoBloc = SearchRepoBloc(getRepo: mockSearcRepo);
+      searchRepoBloc = JobRepoBloc(getRepo: mockSearcRepo);
     });
     blocTest('emit [GetSearchRepoLoadingState ,GetSearchRepoPaginatedState] ',
         build: () => searchRepoBloc,
         act: (bloc) =>
-            bloc.add(const SearchRepoPaginatedEvent(keyWords: 'rao')),
+            bloc.add(const JobListPaginatedEvent(keyWords: 'rao')),
         expect: (() => [
-              GetSearchRepoLoadingState(),
-              GetSearchRepoPaginatedState(
+              JobListLoadingState(),
+              JobListPaginatedState(
                   pageNo: 1, reposItem: mockRepoItemsData)
             ]));
 
     blocTest('emit [] on clear bloc values.',
         build: () => searchRepoBloc,
-        act: (bloc) => bloc.add(const SearchRepoInitialEvent()),
+        act: (bloc) => bloc.add(const JobListInitialEvent()),
         expect: (() => []));
 
     tearDown(() {

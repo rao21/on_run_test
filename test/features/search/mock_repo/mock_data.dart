@@ -1,4 +1,4 @@
-import 'package:on_run_test/features/search/data/datamodels/searchrepo/search_repo.dart';
+import 'package:on_run_test/features/job/data/datamodels/searchrepo/job_list_repo.dart';
 
 var mockRepoItemsData = <Items>[
   Items(
