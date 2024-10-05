@@ -12,10 +12,7 @@ class HttpCalls {
     if (!connectionChecker) {
       throw NetworkConnectFailure();
     }
-    final resp = await client.get(Uri.parse(url), headers: {
-      "Content-Type": "application/json",
-      "Token": Constants.token
-    });
+    final resp = await client.get(Uri.parse(url));
     return resp;
   }
 
