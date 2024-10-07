@@ -11,8 +11,8 @@ abstract class GitRepoIssuesState extends Equatable {
 class GitIssueRepoLoadingState extends GitRepoIssuesState {}
 
 class GitIssueRepoSuccessState extends GitRepoIssuesState {
-  final List<IssuesItems> reposItem;
-  const GitIssueRepoSuccessState({required this.reposItem});
+  final JobDetail data;
+  const GitIssueRepoSuccessState({required this.data});
 }
 
 class GetIssueRepoErrorState extends GitRepoIssuesState {

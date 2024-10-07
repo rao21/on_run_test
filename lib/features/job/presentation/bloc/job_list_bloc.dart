@@ -14,7 +14,7 @@ class JobRepoBloc extends Bloc<JobListEvent, JobListState> {
       if (event is JobListPaginatedEvent && hasMoreData) {
         emit(JobListLoadingState());
         final response =
-            await getRepo.call(pageNo: pageNo, keyWords: event.keyWords!);
+            await getRepo.call();
         response.fold(
           (failure) {
             emit(GetSearchRepoPaginatedErrorState(
@@ -27,8 +27,6 @@ class JobRepoBloc extends Bloc<JobListEvent, JobListState> {
           },
           (searchedItems) {
             hasMoreData = searchedItems.nextLink != null;
-            // repos.addAll([searchedItems]);
-            // repos.sortedBy((it) => it.title!);
             List<JobUI> obj = searchedItems.data.map(JobUI.fromResponse).toList();
             emit(JobListPaginatedState(
                 reposItem: obj, pageNo: pageNo));

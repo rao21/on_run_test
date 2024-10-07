@@ -7,8 +7,7 @@ class JobListUseCase {
   final JobRepositories repo;
   JobListUseCase(this.repo);
 
-  Future<Either<Failure, JobResponse>> call(
-      {required int pageNo, required String keyWords}) async {
-    return await repo.getJobs(pageNo: pageNo, keyWords: keyWords);
+  Future<Either<Failure, JobResponse>> call() async {
+    return await repo.getJobs();
   }
 }

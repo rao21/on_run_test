@@ -4,16 +4,16 @@ import 'package:on_run_test/features/issues/domain/repositories/issues_repositor
 import 'package:on_run_test/core/error/failures.dart';
 import 'package:dartz/dartz.dart';
 
-class IssuesRepoImplementation extends IssuesRepositories {
-  final IssueRepoDataSource repositories;
-  IssuesRepoImplementation({required this.repositories});
+class JobDetailRepoImplementation extends JobDetailRepositories {
+  final JobDetailRepoDataSource repositories;
+  JobDetailRepoImplementation({required this.repositories});
 
   @override
-  Future<Either<Failure, Issues>> getReposIssues(
-      {required int pageNo, required String fullName}) async {
+  Future<Either<Failure, JobDetail>> getReposIssues(
+      {required String fullName}) async {
     try {
       final remotePosts = await repositories.getSearchReposIssues(
-          pageNo: pageNo, fullName: fullName);
+           id: fullName);
 
       return Right(remotePosts);
     } catch (exp) {

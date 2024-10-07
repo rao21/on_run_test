@@ -45,7 +45,9 @@ class ReposLazyListWidget extends StatelessWidget {
           }
           if (childType == JobUI) {
             var obj = data[i];
-            return JobCard(job: obj,key: ValueKey(obj.id,));            
+            return InkWell(
+              onTap: () =>  onTapCallBack(obj.uuid),
+              child: JobCard(job: obj,key: ValueKey(obj.id,)));            
           }
           
           return Container();

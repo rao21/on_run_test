@@ -4,11 +4,11 @@ import 'package:on_run_test/features/issues/data/datamodels/issues/issues_repo.d
 import 'package:on_run_test/features/issues/domain/repositories/issues_repository.dart';
 
 class IssueRepoUseCase {
-  final IssuesRepositories repo;
+  final JobDetailRepositories repo;
   IssueRepoUseCase(this.repo);
 
-  Future<Either<Failure, Issues>> call(
-      {required int pageNo, required String fullName}) async {
-    return await repo.getReposIssues(pageNo: pageNo, fullName: fullName);
+  Future<Either<Failure, JobDetail>> call(
+      {required String id}) async {
+    return await repo.getReposIssues(fullName: id);
   }
 }

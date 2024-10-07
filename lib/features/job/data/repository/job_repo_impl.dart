@@ -9,8 +9,7 @@ class JobRepoImplementation extends JobRepositories {
   JobRepoImplementation({required this.repositories});
 
   @override
-  Future<Either<Failure, JobResponse>> getJobs(
-      {required int pageNo, required String keyWords}) async {
+  Future<Either<Failure, JobResponse>> getJobs() async {
     try {
       final remotePosts =
           await repositories.getSearchRepos();

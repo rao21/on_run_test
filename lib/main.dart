@@ -26,6 +26,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (_) =>
                 di.sl<JobRepoBloc>()..add(const JobListInitialEvent())),
+        BlocProvider(
+            create: (_) =>
+                di.sl<GitRepoIssuesBloc>()..add(const GitRepoIssuesEventInitialEvent())),
+
       ],
       child: MaterialApp(
         title: 'Git Repos',

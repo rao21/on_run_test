@@ -47,14 +47,14 @@ class _JobListWidgetState extends State<JobListWidget> {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (BuildContext context) =>
-            GitReposIssuesListPage(fullName: id),
+            GitReposIssuesListPage(id: id),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: _buildAppBar(), body: _buildBody(),bottomNavigationBar: _bottomNavigationBar,);
+    return Scaffold(appBar: _buildAppBar(), body: _buildBody(),bottomNavigationBar: bottomNavigationBar,);
   }
 
   Widget _buildBody() {
@@ -65,16 +65,12 @@ class _JobListWidgetState extends State<JobListWidget> {
           builder: (context, state) {
             if (state is JobListLoadingState) {
               return const LoadingWidget();
-            } 
-            // else if (state is GetSearchRepoPaginatedState) {
-            //   data!.addAll(state.reposItem!);
-            //   return _buildRepoList(data!, moreData);
-            // } 
+            }  
             else if (state is GetSearchRepoPaginatedErrorState) {
               return Center(child: Text(state.message));
             }
             else if (state is JobListPaginatedState){
-            return _buildRepoList(state.reposItem!, moreData);
+            return _buildRepoList(state.reposItem, moreData);
             }
             
             return LoadingWidget();
@@ -97,6 +93,7 @@ Widget _buildRepoList(List<JobUI> data, bool moreData) {
     );
   }
 
+
 AppBar _buildAppBar() =>  AppBar(
         title: const Text('Jobs'),
         centerTitle: false,
@@ -107,8 +104,8 @@ AppBar _buildAppBar() =>  AppBar(
           ),
         ],
       );
- 
- final BottomNavigationBar  _bottomNavigationBar = BottomNavigationBar(
+}
+ final BottomNavigationBar  bottomNavigationBar = BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.work), label: 'Jobs'),
           BottomNavigationBarItem(icon: Icon(Icons.article), label: 'Resume'),
@@ -116,4 +113,4 @@ AppBar _buildAppBar() =>  AppBar(
         ],
       
     );
-}
+

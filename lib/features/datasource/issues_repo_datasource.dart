@@ -7,27 +7,27 @@ import 'package:on_run_test/core/utils/http.dart';
 import 'package:on_run_test/features/issues/data/datamodels/issues/issues_repo.dart';
 import 'package:http/http.dart' as http;
 
-abstract class IssueRepoDataSource {
-  Future<Issues> getSearchReposIssues(
-      {required int pageNo, required String fullName});
+abstract class JobDetailRepoDataSource {
+  Future<JobDetail> getSearchReposIssues(
+      {required String id});
 }
 
-class IssuesRepoDataSourceImpl extends IssueRepoDataSource {
+class JobDetailRepoDataSourceImpl extends JobDetailRepoDataSource {
   late final http.Client client;
-  IssuesRepoDataSourceImpl({
+  JobDetailRepoDataSourceImpl({
     required this.client,
   });
 
   @override
-  Future<Issues> getSearchReposIssues(
-      {required int pageNo, required String fullName}) async {
+  Future<JobDetail> getSearchReposIssues(
+      {required String id}) async {
     try {
-      const url =
-          "${Constants.aDebugBaseUrl}${Constants.searchRepoIssuesUrl}";
+      var url =
+          "${Constants.aDebugBaseUrl}${Constants.jobs}/$id";
       final response = await HttpCalls.getApiCall(url: url);
       if (response.statusCode == 200) {
         Map<String, dynamic> resp = jsonDecode(response.body);
-        return Issues.fromJson(resp);
+        return JobDetail.fromJson(resp['data']);
       }
     } on NetworkConnectFailure {
       throw NetworkConnectFailure();
