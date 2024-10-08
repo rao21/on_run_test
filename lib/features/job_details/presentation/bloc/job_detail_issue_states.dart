@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:on_run_test/features/issues/data/datamodels/issues/issues_repo.dart';
+import 'package:on_run_test/features/job_details/data/datamodels/issues/job_detail_source.dart';
 
 abstract class GitRepoIssuesState extends Equatable {
   const GitRepoIssuesState();

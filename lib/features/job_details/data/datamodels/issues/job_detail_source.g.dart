@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'issues_repo.dart';
+part of 'job_detail_source.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

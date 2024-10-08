@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'issues_repo.g.dart';
+part 'job_detail_source.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class JobDetail {

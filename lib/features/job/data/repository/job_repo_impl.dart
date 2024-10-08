@@ -1,4 +1,4 @@
-import 'package:on_run_test/features/datasource/serach_repo_datasource.dart';
+import 'package:on_run_test/features/datasource/job_datasource.dart';
 import 'package:on_run_test/features/job/data/datamodels/searchrepo/job_list_repo.dart';
 import 'package:on_run_test/core/error/failures.dart';
 import 'package:dartz/dartz.dart';

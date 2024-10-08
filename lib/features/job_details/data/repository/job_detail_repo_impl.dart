@@ -1,6 +1,6 @@
-import 'package:on_run_test/features/datasource/issues_repo_datasource.dart';
-import 'package:on_run_test/features/issues/data/datamodels/issues/issues_repo.dart';
-import 'package:on_run_test/features/issues/domain/repositories/issues_repository.dart';
+import 'package:on_run_test/features/datasource/job_detail_datasource.dart';
+import 'package:on_run_test/features/job_details/data/datamodels/issues/job_detail_source.dart';
+import 'package:on_run_test/features/job_details/domain/repositories/job_detail_repository.dart';
 import 'package:on_run_test/core/error/failures.dart';
 import 'package:dartz/dartz.dart';
 

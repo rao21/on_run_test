@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:on_run_test/core/bloc/debug.dart';
 import 'package:on_run_test/core/utils/theme.dart';
-import 'package:on_run_test/features/issues/presentation/bloc/git_repo_issue_bloc.dart';
-import 'package:on_run_test/features/issues/presentation/bloc/git_repo_issue_events.dart';
+import 'package:on_run_test/features/job_details/presentation/bloc/job_detail_bloc.dart';
+import 'package:on_run_test/features/job_details/presentation/bloc/job_detail_events.dart';
 import 'package:on_run_test/features/job/presentation/ui/job_list.dart';
 import 'based_injection/di.dart' as di;
 import 'features/job/presentation/bloc/job_list_bloc.dart';
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
                 di.sl<JobRepoBloc>()..add(const JobListInitialEvent())),
         BlocProvider(
             create: (_) =>
-                di.sl<GitRepoIssuesBloc>()..add(const GitRepoIssuesEventInitialEvent())),
+                di.sl<JobDetailBloc>()..add(const JobDetailEventInitialEvent())),
 
       ],
       child: MaterialApp(

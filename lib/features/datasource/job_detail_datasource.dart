@@ -4,8 +4,8 @@ import 'dart:developer';
 import 'package:on_run_test/core/error/failures.dart';
 import 'package:on_run_test/core/utils/constants.dart';
 import 'package:on_run_test/core/utils/http.dart';
-import 'package:on_run_test/features/issues/data/datamodels/issues/issues_repo.dart';
 import 'package:http/http.dart' as http;
+import 'package:on_run_test/features/job_details/data/datamodels/issues/job_detail_source.dart';
 
 abstract class JobDetailRepoDataSource {
   Future<JobDetail> getSearchReposIssues(

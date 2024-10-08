@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:on_run_test/features/job/presentation/bloc/job_list_bloc.dart';
-import 'package:on_run_test/features/issues/presentation/ui/git_repo_issues.dart';
+import 'package:on_run_test/features/job_details/presentation/ui/git_repo_issues.dart';
 import 'package:on_run_test/features/job/data/datamodels/searchrepo/job_list_repo.dart';
 import 'package:on_run_test/features/job/presentation/bloc/job_list_events.dart';
 import 'package:on_run_test/features/job/presentation/bloc/job_list_states.dart';
@@ -60,6 +60,7 @@ class _JobListWidgetState extends State<JobListWidget> {
   Widget _buildBody() {
     var moreData = context.watch<JobRepoBloc>().hasMoreData;
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         BlocBuilder<JobRepoBloc, JobListState>(
           builder: (context, state) {

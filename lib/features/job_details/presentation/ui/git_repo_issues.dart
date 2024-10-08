@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:on_run_test/features/issues/presentation/bloc/git_repo_issue_bloc.dart';
-import 'package:on_run_test/features/issues/presentation/bloc/git_repo_issue_events.dart';
-import 'package:on_run_test/features/issues/presentation/bloc/git_repo_issue_states.dart';
+import 'package:on_run_test/features/job_details/presentation/bloc/job_detail_bloc.dart';
+import 'package:on_run_test/features/job_details/presentation/bloc/job_detail_events.dart';
+import 'package:on_run_test/features/job_details/presentation/bloc/job_detail_issue_states.dart';
 import 'package:on_run_test/features/job/presentation/ui/job_list.dart';
 
 class GitReposIssuesListPage extends StatefulWidget {
@@ -19,8 +19,8 @@ class _GitReposIssuesListPageState extends State<GitReposIssuesListPage> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      BlocProvider.of<GitRepoIssuesBloc>(context)
-        .add(GitRepoIssuesPaginatedIssuesEvent(fullName: widget.id));
+      BlocProvider.of<JobDetailBloc>(context)
+        .add(JobDetailIssuesPaginatedIssuesEvent(fullName: widget.id));
     });
     super.initState();
   }
@@ -34,7 +34,7 @@ class _GitReposIssuesListPageState extends State<GitReposIssuesListPage> {
   Widget _buildBody() {
     return Column(
       children: [
-        BlocBuilder<GitRepoIssuesBloc, GitRepoIssuesState>(
+        BlocBuilder<JobDetailBloc, GitRepoIssuesState>(
           builder: (context, state) {
             if (state is GitIssueRepoSuccessState) {
               return Expanded(
