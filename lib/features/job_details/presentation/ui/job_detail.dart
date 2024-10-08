@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:on_run_test/features/job/widgets/loading_widget.dart';
+import 'package:on_run_test/features/job_details/data/datamodels/issues/job_detail_source.dart';
 import 'package:on_run_test/features/job_details/presentation/bloc/job_detail_bloc.dart';
 import 'package:on_run_test/features/job_details/presentation/bloc/job_detail_events.dart';
 import 'package:on_run_test/features/job_details/presentation/bloc/job_detail_issue_states.dart';
@@ -32,39 +34,32 @@ class _GitReposIssuesListPageState extends State<GitReposIssuesListPage> {
   }
 
   Widget _buildBody() {
-    return Column(
-      children: [
-        BlocBuilder<JobDetailBloc, GitRepoIssuesState>(
-          builder: (context, state) {
-            if (state is GitIssueRepoSuccessState) {
-              return Expanded(
-                child: JobDetailsPage(),
-              );
-            } else if (state is GetIssueRepoErrorState) {
-              return Center(child: Text(state.message));
-            }
-            return Expanded(
-              child: JobDetailsPage(),
-            );
-          },
-        ),
-      ],
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          BlocBuilder<JobDetailBloc, JobDetailState>(
+            builder: (context, state) {
+              if (state is JobDetailSuccessState) {
+                return Expanded(
+                  child: JobDetailsPage(obj: state.data,),
+                );
+              } else if (state is JobDetailErrorState) {
+                return Center(child: Text(state.message));
+              } 
+              return const LoadingWidget();
+            },
+          ),
+        ],
+      ),
     );
   }
 
-  AppBar _buildAppBar() => AppBar(
-      leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: const Icon(Icons.close)),
-      title: Text('${widget.id} Issues'));
 }
 
-
-
-
 class JobDetailsPage extends StatelessWidget {
+  final JobDetail obj;
+  JobDetailsPage({required this.obj});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,11 +72,11 @@ class JobDetailsPage extends StatelessWidget {
             children: [
               ListTile(
                 contentPadding: const EdgeInsets.all(0),
-                leading: Image.network('https://via.placeholder.com/50'),
-                title: Text('Hungerstation', style: TextStyle(fontWeight: FontWeight.bold)),
-                subtitle: Text('Technology, Information and Internet'),
+                leading: Image.network(obj.company?.logo ?? ''),
+                title: Text(obj.company?.name ?? '-', style: TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: Text(obj.company?.industry ?? '-'),
               ),
-              SizedBox(height: 16),
+             const SizedBox(height: 16),
               Text('Business Development Associate', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               Text('Riyadh · Onsite · Fulltime'),
               SizedBox(height: 8),
@@ -97,13 +92,12 @@ class JobDetailsPage extends StatelessWidget {
               SizedBox(height: 16),
               Text('Job Description', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               SizedBox(height: 8),
-              Text(
-                  'As a vital part of the sales team at Hungerstation, your role will focus on nurturing and closing B2B relations within the fields of Entrepreneurship and Hospitality. This junior position is meant for individuals who thrive at presenting excellent solutions and negotiating, ensuring both the client’s satisfaction and the success of our company.'),
+              ListView(shrinkWrap: true,children: obj.icpAnswers!.jobRole!.map((e)=>Text(obj.icpAnswers?.jobRole?.first.descriptionEn ?? '')).toList(),),
               SizedBox(height: 16),
               Text('Key Responsibilities', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               SizedBox(height: 8),
-              Text(
-                  '• Initiate contact with potential business clients to introduce our unmatched services.\n• Effectively manage the entire sales process from the first contact to the deal’s closing.\n• Establish and uphold durable, long-term customer relationships.• Initiate contact with potential business clients to introduce our unmatched services.\n• Effectively manage the entire sales process from the first contact to the deal’s closing.\n• Establish and uphold durable, long-term customer relationships.• Initiate contact with potential business clients to introduce our unmatched services.\n• Effectively manage the entire sales process from the first contact to the deal’s closing.\n• Establish and uphold durable, long-term customer relationships.• Initiate contact with potential business clients to introduce our unmatched services.\n• Effectively manage the entire sales process from the first contact to the deal’s closing.\n• Establish and uphold durable, long-term customer relationships.'),
+              ListView(shrinkWrap: true,children: obj.icpAnswers!.typeOfSales!.map((e)=>Text('• ${obj.icpAnswers?.jobRole?.first.descriptionEn ?? ''}')).toList(),)
+              
             ],
           ),
         ),

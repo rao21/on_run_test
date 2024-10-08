@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:on_run_test/features/job/presentation/bloc/job_list_bloc.dart';
-import 'package:on_run_test/features/job_details/presentation/ui/git_repo_issues.dart';
+import 'package:on_run_test/features/job_details/presentation/ui/job_detail.dart';
 import 'package:on_run_test/features/job/data/datamodels/searchrepo/job_list_repo.dart';
 import 'package:on_run_test/features/job/presentation/bloc/job_list_events.dart';
 import 'package:on_run_test/features/job/presentation/bloc/job_list_states.dart';

@@ -3,7 +3,7 @@ import 'package:on_run_test/features/job_details/domain/usecases/job_detail_usec
 import 'package:on_run_test/features/job_details/presentation/bloc/job_detail_events.dart';
 import 'package:on_run_test/features/job_details/presentation/bloc/job_detail_issue_states.dart';
 
-class JobDetailBloc extends Bloc<JobDetailIssuesEvent, GitRepoIssuesState> {
+class JobDetailBloc extends Bloc<JobDetailIssuesEvent, JobDetailState> {
   final JobDetailUseCase getRepo;
   JobDetailBloc({required this.getRepo})
       : super(GitIssueRepoLoadingState()) {
@@ -14,12 +14,12 @@ class JobDetailBloc extends Bloc<JobDetailIssuesEvent, GitRepoIssuesState> {
             await getRepo.call(id: event.fullName!);
         response.fold(
           (failure) {
-            emit(const GetIssueRepoErrorState(
+            emit(const JobDetailErrorState(
                 message: "Unexpected Error, Please Try Again"));
            
           },
           (issues) {
-            emit(GitIssueRepoSuccessState(data:issues));
+            emit(JobDetailSuccessState(data:issues));
           },
         );
       }

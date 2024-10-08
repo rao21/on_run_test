@@ -1,24 +1,24 @@
 import 'package:equatable/equatable.dart';
 import 'package:on_run_test/features/job_details/data/datamodels/issues/job_detail_source.dart';
 
-abstract class GitRepoIssuesState extends Equatable {
-  const GitRepoIssuesState();
+abstract class JobDetailState extends Equatable {
+  const JobDetailState();
 
   @override
   List<Object> get props => [];
 }
 
-class GitIssueRepoLoadingState extends GitRepoIssuesState {}
+class GitIssueRepoLoadingState extends JobDetailState {}
 
-class GitIssueRepoSuccessState extends GitRepoIssuesState {
+class JobDetailSuccessState extends JobDetailState {
   final JobDetail data;
-  const GitIssueRepoSuccessState({required this.data});
+  const JobDetailSuccessState({required this.data});
 }
 
-class GetIssueRepoErrorState extends GitRepoIssuesState {
+class JobDetailErrorState extends JobDetailState {
   final String message;
 
-  const GetIssueRepoErrorState({required this.message});
+  const JobDetailErrorState({required this.message});
 
   @override
   List<Object> get props => [message];
