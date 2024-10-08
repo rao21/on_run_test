@@ -71,7 +71,7 @@ class _JobListWidgetState extends State<JobListWidget> {
               return Center(child: Text(state.message));
             }
             else if (state is JobListPaginatedState){
-            return _buildRepoList(state.reposItem, moreData);
+            return _buildJobList(state.reposItem, moreData);
             }
             
             return const LoadingWidget();
@@ -81,7 +81,7 @@ class _JobListWidgetState extends State<JobListWidget> {
     );
   }
 
-Widget _buildRepoList(List<JobUI> data, bool moreData) {
+Widget _buildJobList(List<JobUI> data, bool moreData) {
     return Expanded(
       child: RefreshIndicator(
           onRefresh: () => _onRefresh(context),

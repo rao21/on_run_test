@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:on_run_test/features/job/presentation/ui/job_ui_model.dart';
+import 'package:on_run_test/features/job/widgets/job_company_logo.dart';
 
 class JobCard extends StatelessWidget {
   final JobUI job;
@@ -18,14 +19,8 @@ class JobCard extends StatelessWidget {
             ListTile(
               contentPadding: EdgeInsets.zero,
               leading:  
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),),
-                  child: Image.network(job.companyUrl),
-                ),
-                       title:         Text(job.title, style: const TextStyle(fontWeight: FontWeight.bold)),
+                CompanyLogoWidget(companyUrl: job.companyUrl),
+              title:         Text(job.title, style: const TextStyle(fontWeight: FontWeight.bold)),
                      subtitle:  Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                        children: [
@@ -47,3 +42,4 @@ class JobCard extends StatelessWidget {
     );
   }
 }
+

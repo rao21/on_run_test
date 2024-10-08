@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:on_run_test/features/job/widgets/job_chips.dart';
+import 'package:on_run_test/features/job/widgets/job_company_logo.dart';
 import 'package:on_run_test/features/job/widgets/loading_widget.dart';
 import 'package:on_run_test/features/job_details/data/datamodels/issues/job_detail_source.dart';
 import 'package:on_run_test/features/job_details/presentation/bloc/job_detail_bloc.dart';
@@ -72,31 +74,26 @@ class JobDetailsPage extends StatelessWidget {
             children: [
               ListTile(
                 contentPadding: const EdgeInsets.all(0),
-                leading: Image.network(obj.company?.logo ?? ''),
+                leading: CompanyLogoWidget(companyUrl: obj.company?.logo ?? ''),
                 title: Text(obj.company?.name ?? '-', style: TextStyle(fontWeight: FontWeight.bold)),
                 subtitle: Text(obj.company?.industry ?? '-'),
               ),
              const SizedBox(height: 16),
-              Text('Business Development Associate', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              Text('Riyadh · Onsite · Fulltime'),
-              SizedBox(height: 8),
-              Wrap(
+               Text(obj.icpAnswers!.jobRole?.first.titleEn ?? '-', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              const Text('Riyadh · Onsite · Fulltime'),
+              const SizedBox(height: 8),
+               Wrap(
                 spacing: 8.0,
-                children: [
-                  Chip(label: Text('B2B')),
-                  Chip(label: Text('Sales')),
-                  Chip(label: Text('No Experience')),
-                  Chip(label: Text('Beginner English')),
-                ],
+                children: ['B2B','Sales','No Experience','Beginner English'].map((e)=>JobsChips(title: e)).toList(),
               ),
-              SizedBox(height: 16),
-              Text('Job Description', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              SizedBox(height: 8),
-              ListView(shrinkWrap: true,children: obj.icpAnswers!.jobRole!.map((e)=>Text(obj.icpAnswers?.jobRole?.first.descriptionEn ?? '')).toList(),),
-              SizedBox(height: 16),
-              Text('Key Responsibilities', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              SizedBox(height: 8),
-              ListView(shrinkWrap: true,children: obj.icpAnswers!.typeOfSales!.map((e)=>Text('• ${obj.icpAnswers?.jobRole?.first.descriptionEn ?? ''}')).toList(),)
+              const SizedBox(height: 16),
+              const Text('Job Description', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 8),
+              ListView( physics: NeverScrollableScrollPhysics(),shrinkWrap: true,children: obj.icpAnswers!.jobRole!.map((e)=>Text(obj.icpAnswers?.jobRole?.first.descriptionEn ?? '')).toList(),),
+              const SizedBox(height: 16),
+              const Text('Key Responsibilities', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 8),
+              ListView(physics: NeverScrollableScrollPhysics(),shrinkWrap: true,children: obj.icpAnswers!.typeOfSales!.map((e)=>Text('• ${obj.icpAnswers?.jobRole?.first.descriptionEn ?? ''}')).toList(),)
               
             ],
           ),
