@@ -74,7 +74,7 @@ class _JobListWidgetState extends State<JobListWidget> {
             return _buildRepoList(state.reposItem, moreData);
             }
             
-            return LoadingWidget();
+            return const LoadingWidget();
           },
         ),
       ],

@@ -42,7 +42,9 @@ Job _$JobFromJson(Map<String, dynamic> json) => Job(
           : Company.fromJson(json['company'] as Map<String, dynamic>),
       uuid: json['uuid'] as String?,
       title: json['title'] as String?,
-      updatedDate: json['updatedDate'] as String?,
+      updatedDate: json['updated_date'] == null
+          ? null
+          : DateTime.parse(json['updated_date'] as String),
       workplacePreference: WorkplacePreference.fromJson(
           json['workplace_preference'] as Map<String, dynamic>),
       workplaceType: WorkplaceType.fromJson(
@@ -58,7 +60,7 @@ Map<String, dynamic> _$JobToJson(Job instance) => <String, dynamic>{
       'company': instance.company?.toJson(),
       'uuid': instance.uuid,
       'title': instance.title,
-      'updatedDate': instance.updatedDate,
+      'updated_date': instance.updatedDate?.toIso8601String(),
     };
 
 Location _$LocationFromJson(Map<String, dynamic> json) => Location(

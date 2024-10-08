@@ -9,29 +9,38 @@ class JobCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 2,
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Row(
+        child: Column(
           children: [
-            Container(
-              width: 50,
-              height: 50,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20)),),
-              child: Image.network(job.companyUrl),
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading:  
+                Container(
+                  width: 50,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),),
+                  child: Image.network(job.companyUrl),
+                ),
+                       title:         Text(job.title, style: const TextStyle(fontWeight: FontWeight.bold)),
+                     subtitle:  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         Text(job.subTitle),
+                         Text(job.location, style:const TextStyle(color: Colors.grey)),
+                       ],
+                     ),
+                      
+              
             ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(job.title, style: const TextStyle(fontWeight: FontWeight.bold)),
-                  Text(job.subTitle),
-                  Text(job.location, style:const TextStyle(color: Colors.grey)),
-                ],
-              ),
-            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.max,children: [
+              Text(job.updatedDate ?? '-')
+            ],)
           ],
         ),
       ),

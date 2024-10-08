@@ -1,4 +1,5 @@
 
+import 'package:on_run_test/core/utils/date_extention.dart';
 import 'package:on_run_test/features/job/data/datamodels/searchrepo/job_list_repo.dart';
 
 class JobUI {
@@ -30,7 +31,7 @@ class JobUI {
       id: obj.id.toString(),
       location: '${obj.location?.nameEn} . ${obj.workplaceType.nameEn}',
       title: obj.title ?? '-',
-      updatedDate: obj.updatedDate,
+      updatedDate: obj.updatedDate == null ? '-' : obj.updatedDate!.toRelative(),
       uuid: obj.uuid,
       subTitle: obj.company?.name ?? '-'
     );

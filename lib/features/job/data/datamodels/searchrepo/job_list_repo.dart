@@ -41,7 +41,7 @@ class Job {
   final Company? company;
   final String? uuid;
   final String? title;
-  final String? updatedDate;
+  @JsonKey(name: 'updated_date') final DateTime? updatedDate;
   Job({
     required this.id,
     required this.createdDate,
