@@ -1,11 +1,11 @@
 import 'package:get_it/get_it.dart';
 import 'package:on_run_test/core/error/failures.dart';
-import 'package:on_run_test/features/datasource/issues_repo_datasource.dart';
-import 'package:on_run_test/features/datasource/serach_repo_datasource.dart';
-import 'package:on_run_test/features/issues/data/repository/issues_repo_impl.dart';
-import 'package:on_run_test/features/issues/domain/repositories/issues_repository.dart';
-import 'package:on_run_test/features/issues/domain/usecases/issue_repo_usecase.dart';
-import 'package:on_run_test/features/issues/presentation/bloc/git_repo_issue_bloc.dart';
+import 'package:on_run_test/features/datasource/job_detail_datasource.dart';
+import 'package:on_run_test/features/datasource/job_datasource.dart';
+import 'package:on_run_test/features/job_details/data/repository/job_detail_repo_impl.dart';
+import 'package:on_run_test/features/job_details/domain/repositories/job_detail_repository.dart';
+import 'package:on_run_test/features/job_details/domain/usecases/job_detail_usecase.dart';
+import 'package:on_run_test/features/job_details/presentation/bloc/job_detail_bloc.dart';
 import 'package:on_run_test/features/job/data/repository/job_repo_impl.dart';
 import 'package:on_run_test/features/job/domain/repositories/job_repository.dart';
 import 'package:on_run_test/features/job/domain/usecases/job_list_usecase.dart';
@@ -18,7 +18,7 @@ Future<void> init() async {
   
   sl.registerLazySingleton(() => JobListUseCase(sl()));
 
-  sl.registerLazySingleton(() => IssueRepoUseCase(sl()));
+  sl.registerLazySingleton(() => JobDetailUseCase(sl()));
   
   sl.registerLazySingleton<JobRepositories>(
       () => JobRepoImplementation(repositories: sl()));
@@ -34,7 +34,7 @@ Future<void> init() async {
   sl.registerLazySingleton<JobDetailRepoDataSource>(
       () => JobDetailRepoDataSourceImpl(client: sl()));
 
-  sl.registerFactory(() => GitRepoIssuesBloc(getRepo: sl()));
+  sl.registerFactory(() => JobDetailBloc(getRepo: sl()));
 
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
